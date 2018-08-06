@@ -28,7 +28,10 @@ Window {
             anchors.left: parent.left
             anchors.verticalCenter: parent.verticalCenter
         }
-
+        ControlPad {
+            anchors.right: parent.right
+            anchors.bottom: parent.bottom
+        }
     }
 }
 

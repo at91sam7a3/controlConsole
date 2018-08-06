@@ -8,5 +8,7 @@
         <file>qml/main.qml</file>
         <file>qml/MainMenu.qml</file>
         <file>qml/SensorsView.qml</file>
+        <file>qml/SensorLine.qml</file>
+        <file>qml/ControlPad.qml</file>
     </qresource>
 </RCC>

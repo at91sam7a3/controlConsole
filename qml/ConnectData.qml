@@ -17,6 +17,7 @@ Rectangle {
         text:"Enter Robot`s IP"
     }
     InputField{
+        id:inputIpField
         anchors.bottomMargin: defaultMargin
         anchors.leftMargin: defaultMargin
         width:defaultMargin*24
@@ -30,6 +31,9 @@ Rectangle {
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         text: "Connect"
+        onClick: {
+            sData.connect("tcp://"+inputIpField.value+":5555")
+        }
     }
 
 

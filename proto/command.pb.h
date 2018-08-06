@@ -36,7 +36,7 @@ namespace protobuf_command_2eproto {
 struct TableStruct {
   static const ::google::protobuf::internal::ParseTableField entries[];
   static const ::google::protobuf::internal::AuxillaryParseTableField aux[];
-  static const ::google::protobuf::internal::ParseTable schema[2];
+  static const ::google::protobuf::internal::ParseTable schema[3];
   static const ::google::protobuf::internal::FieldMetadata field_metadata[];
   static const ::google::protobuf::internal::SerializationTable serialization_table[];
   static const ::google::protobuf::uint32 offsets[];
@@ -46,15 +46,21 @@ void InitDefaultsCommandToServoImpl();
 void InitDefaultsCommandToServo();
 void InitDefaultsResponceFromServoImpl();
 void InitDefaultsResponceFromServo();
+void InitDefaultsMoveCommandImpl();
+void InitDefaultsMoveCommand();
 inline void InitDefaults() {
   InitDefaultsCommandToServo();
   InitDefaultsResponceFromServo();
+  InitDefaultsMoveCommand();
 }
 }  // namespace protobuf_command_2eproto
 namespace Command {
 class CommandToServo;
 class CommandToServoDefaultTypeInternal;
 extern CommandToServoDefaultTypeInternal _CommandToServo_default_instance_;
+class MoveCommand;
+class MoveCommandDefaultTypeInternal;
+extern MoveCommandDefaultTypeInternal _MoveCommand_default_instance_;
 class ResponceFromServo;
 class ResponceFromServoDefaultTypeInternal;
 extern ResponceFromServoDefaultTypeInternal _ResponceFromServo_default_instance_;
@@ -323,55 +329,152 @@ class ResponceFromServo : public ::google::protobuf::Message /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // required string name = 1;
-  bool has_name() const;
-  void clear_name();
-  static const int kNameFieldNumber = 1;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  #if LANG_CXX11
-  void set_name(::std::string&& value);
-  #endif
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
-
-  // required uint32 servoId = 2;
-  bool has_servoid() const;
-  void clear_servoid();
-  static const int kServoIdFieldNumber = 2;
-  ::google::protobuf::uint32 servoid() const;
-  void set_servoid(::google::protobuf::uint32 value);
-
-  // required int32 result = 3;
+  // required int32 result = 1;
   bool has_result() const;
   void clear_result();
-  static const int kResultFieldNumber = 3;
+  static const int kResultFieldNumber = 1;
   ::google::protobuf::int32 result() const;
   void set_result(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:Command.ResponceFromServo)
  private:
-  void set_has_name();
-  void clear_has_name();
-  void set_has_servoid();
-  void clear_has_servoid();
   void set_has_result();
   void clear_has_result();
-
-  // helper for ByteSizeLong()
-  size_t RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   ::google::protobuf::internal::HasBits<1> _has_bits_;
   mutable int _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
-  ::google::protobuf::uint32 servoid_;
   ::google::protobuf::int32 result_;
   friend struct ::protobuf_command_2eproto::TableStruct;
   friend void ::protobuf_command_2eproto::InitDefaultsResponceFromServoImpl();
+};
+// -------------------------------------------------------------------
+
+class MoveCommand : public ::google::protobuf::Message /* @@protoc_insertion_point(class_definition:Command.MoveCommand) */ {
+ public:
+  MoveCommand();
+  virtual ~MoveCommand();
+
+  MoveCommand(const MoveCommand& from);
+
+  inline MoveCommand& operator=(const MoveCommand& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  #if LANG_CXX11
+  MoveCommand(MoveCommand&& from) noexcept
+    : MoveCommand() {
+    *this = ::std::move(from);
+  }
+
+  inline MoveCommand& operator=(MoveCommand&& from) noexcept {
+    if (GetArenaNoVirtual() == from.GetArenaNoVirtual()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+  #endif
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const {
+    return _internal_metadata_.unknown_fields();
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields() {
+    return _internal_metadata_.mutable_unknown_fields();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor();
+  static const MoveCommand& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const MoveCommand* internal_default_instance() {
+    return reinterpret_cast<const MoveCommand*>(
+               &_MoveCommand_default_instance_);
+  }
+  static PROTOBUF_CONSTEXPR int const kIndexInFileMessages =
+    2;
+
+  void Swap(MoveCommand* other);
+  friend void swap(MoveCommand& a, MoveCommand& b) {
+    a.Swap(&b);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline MoveCommand* New() const PROTOBUF_FINAL { return New(NULL); }
+
+  MoveCommand* New(::google::protobuf::Arena* arena) const PROTOBUF_FINAL;
+  void CopyFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void MergeFrom(const ::google::protobuf::Message& from) PROTOBUF_FINAL;
+  void CopyFrom(const MoveCommand& from);
+  void MergeFrom(const MoveCommand& from);
+  void Clear() PROTOBUF_FINAL;
+  bool IsInitialized() const PROTOBUF_FINAL;
+
+  size_t ByteSizeLong() const PROTOBUF_FINAL;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input) PROTOBUF_FINAL;
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const PROTOBUF_FINAL;
+  ::google::protobuf::uint8* InternalSerializeWithCachedSizesToArray(
+      bool deterministic, ::google::protobuf::uint8* target) const PROTOBUF_FINAL;
+  int GetCachedSize() const PROTOBUF_FINAL { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const PROTOBUF_FINAL;
+  void InternalSwap(MoveCommand* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return NULL;
+  }
+  inline void* MaybeArenaPtr() const {
+    return NULL;
+  }
+  public:
+
+  ::google::protobuf::Metadata GetMetadata() const PROTOBUF_FINAL;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required string command = 1;
+  bool has_command() const;
+  void clear_command();
+  static const int kCommandFieldNumber = 1;
+  const ::std::string& command() const;
+  void set_command(const ::std::string& value);
+  #if LANG_CXX11
+  void set_command(::std::string&& value);
+  #endif
+  void set_command(const char* value);
+  void set_command(const char* value, size_t size);
+  ::std::string* mutable_command();
+  ::std::string* release_command();
+  void set_allocated_command(::std::string* command);
+
+  // optional int32 steps = 2;
+  bool has_steps() const;
+  void clear_steps();
+  static const int kStepsFieldNumber = 2;
+  ::google::protobuf::int32 steps() const;
+  void set_steps(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:Command.MoveCommand)
+ private:
+  void set_has_command();
+  void clear_has_command();
+  void set_has_steps();
+  void clear_has_steps();
+
+  ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
+  ::google::protobuf::internal::HasBits<1> _has_bits_;
+  mutable int _cached_size_;
+  ::google::protobuf::internal::ArenaStringPtr command_;
+  ::google::protobuf::int32 steps_;
+  friend struct ::protobuf_command_2eproto::TableStruct;
+  friend void ::protobuf_command_2eproto::InitDefaultsMoveCommandImpl();
 };
 // ===================================================================
 
@@ -571,102 +674,15 @@ inline void CommandToServo::set_param4(::google::protobuf::int32 value) {
 
 // ResponceFromServo
 
-// required string name = 1;
-inline bool ResponceFromServo::has_name() const {
+// required int32 result = 1;
+inline bool ResponceFromServo::has_result() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ResponceFromServo::set_has_name() {
+inline void ResponceFromServo::set_has_result() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void ResponceFromServo::clear_has_name() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void ResponceFromServo::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_name();
-}
-inline const ::std::string& ResponceFromServo::name() const {
-  // @@protoc_insertion_point(field_get:Command.ResponceFromServo.name)
-  return name_.GetNoArena();
-}
-inline void ResponceFromServo::set_name(const ::std::string& value) {
-  set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Command.ResponceFromServo.name)
-}
-#if LANG_CXX11
-inline void ResponceFromServo::set_name(::std::string&& value) {
-  set_has_name();
-  name_.SetNoArena(
-    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
-  // @@protoc_insertion_point(field_set_rvalue:Command.ResponceFromServo.name)
-}
-#endif
-inline void ResponceFromServo::set_name(const char* value) {
-  GOOGLE_DCHECK(value != NULL);
-  set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Command.ResponceFromServo.name)
-}
-inline void ResponceFromServo::set_name(const char* value, size_t size) {
-  set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Command.ResponceFromServo.name)
-}
-inline ::std::string* ResponceFromServo::mutable_name() {
-  set_has_name();
-  // @@protoc_insertion_point(field_mutable:Command.ResponceFromServo.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* ResponceFromServo::release_name() {
-  // @@protoc_insertion_point(field_release:Command.ResponceFromServo.name)
-  clear_has_name();
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void ResponceFromServo::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    set_has_name();
-  } else {
-    clear_has_name();
-  }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:Command.ResponceFromServo.name)
-}
-
-// required uint32 servoId = 2;
-inline bool ResponceFromServo::has_servoid() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void ResponceFromServo::set_has_servoid() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void ResponceFromServo::clear_has_servoid() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void ResponceFromServo::clear_servoid() {
-  servoid_ = 0u;
-  clear_has_servoid();
-}
-inline ::google::protobuf::uint32 ResponceFromServo::servoid() const {
-  // @@protoc_insertion_point(field_get:Command.ResponceFromServo.servoId)
-  return servoid_;
-}
-inline void ResponceFromServo::set_servoid(::google::protobuf::uint32 value) {
-  set_has_servoid();
-  servoid_ = value;
-  // @@protoc_insertion_point(field_set:Command.ResponceFromServo.servoId)
-}
-
-// required int32 result = 3;
-inline bool ResponceFromServo::has_result() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void ResponceFromServo::set_has_result() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void ResponceFromServo::clear_has_result() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000001u;
 }
 inline void ResponceFromServo::clear_result() {
   result_ = 0;
@@ -682,9 +698,102 @@ inline void ResponceFromServo::set_result(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Command.ResponceFromServo.result)
 }
 
+// -------------------------------------------------------------------
+
+// MoveCommand
+
+// required string command = 1;
+inline bool MoveCommand::has_command() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+inline void MoveCommand::set_has_command() {
+  _has_bits_[0] |= 0x00000001u;
+}
+inline void MoveCommand::clear_has_command() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+inline void MoveCommand::clear_command() {
+  command_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_command();
+}
+inline const ::std::string& MoveCommand::command() const {
+  // @@protoc_insertion_point(field_get:Command.MoveCommand.command)
+  return command_.GetNoArena();
+}
+inline void MoveCommand::set_command(const ::std::string& value) {
+  set_has_command();
+  command_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Command.MoveCommand.command)
+}
+#if LANG_CXX11
+inline void MoveCommand::set_command(::std::string&& value) {
+  set_has_command();
+  command_.SetNoArena(
+    &::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::move(value));
+  // @@protoc_insertion_point(field_set_rvalue:Command.MoveCommand.command)
+}
+#endif
+inline void MoveCommand::set_command(const char* value) {
+  GOOGLE_DCHECK(value != NULL);
+  set_has_command();
+  command_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Command.MoveCommand.command)
+}
+inline void MoveCommand::set_command(const char* value, size_t size) {
+  set_has_command();
+  command_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Command.MoveCommand.command)
+}
+inline ::std::string* MoveCommand::mutable_command() {
+  set_has_command();
+  // @@protoc_insertion_point(field_mutable:Command.MoveCommand.command)
+  return command_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* MoveCommand::release_command() {
+  // @@protoc_insertion_point(field_release:Command.MoveCommand.command)
+  clear_has_command();
+  return command_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void MoveCommand::set_allocated_command(::std::string* command) {
+  if (command != NULL) {
+    set_has_command();
+  } else {
+    clear_has_command();
+  }
+  command_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), command);
+  // @@protoc_insertion_point(field_set_allocated:Command.MoveCommand.command)
+}
+
+// optional int32 steps = 2;
+inline bool MoveCommand::has_steps() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void MoveCommand::set_has_steps() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void MoveCommand::clear_has_steps() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void MoveCommand::clear_steps() {
+  steps_ = 0;
+  clear_has_steps();
+}
+inline ::google::protobuf::int32 MoveCommand::steps() const {
+  // @@protoc_insertion_point(field_get:Command.MoveCommand.steps)
+  return steps_;
+}
+inline void MoveCommand::set_steps(::google::protobuf::int32 value) {
+  set_has_steps();
+  steps_ = value;
+  // @@protoc_insertion_point(field_set:Command.MoveCommand.steps)
+}
+
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 // -------------------------------------------------------------------
 
 
