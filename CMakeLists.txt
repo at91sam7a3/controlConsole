@@ -19,3 +19,9 @@ aux_source_directory(./proto SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST} "qml.qrc")
 
 target_link_libraries(${PROJECT_NAME} Qt5::Core Qt5::Quick  ${CONAN_LIBS})
+
+add_custom_target(useful_files DEPENDS ALL
+    SOURCES
+    command.proto
+    conanfile.txt
+)
