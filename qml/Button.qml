@@ -18,6 +18,17 @@ Rectangle{
     MouseArea{
         anchors.fill: parent
         onClicked:{ parent.click() }
+        hoverEnabled: true
+        onHoveredChanged: {
+            button.color= (containsMouse ? "lightgrey": "grey")
+        }
+    onReleased: {
+        button.color = "lightgrey"
+    }
+    onPressed: {
+        button.color = "lightyellow"
+    }
+
     }
 }
 

@@ -56,4 +56,32 @@ Rectangle{
         anchors.topMargin: defaultMargin
         text: "Back"
     }
+
+    Column{
+        spacing: defaultMargin
+        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: leftButton.left
+        anchors.margins: defaultMargin
+        Label{
+            text: "Servo#"
+        }
+        InputField{
+            width: parent.width
+            value: "0"
+        }
+        Label{
+            text: "Angle"
+        }
+        InputField{
+            width: parent.width
+            value: "0"
+        }
+        Button{
+            id: setAngleButton
+            text: "Set"
+            width: parent.width
+        }
+    }
 }

@@ -2,6 +2,7 @@
 #include <zmq.hpp>
 #include "proto/command.pb.h"
 #include <QDebug>
+#include "Communication.h"
 ServoData::ServoData(QObject *parent)
     : QObject(parent)
     , context(1)
@@ -24,22 +25,74 @@ bool ServoData::connect(QString ip)
 
 void ServoData::stepForward(int steps)
 {
-
+    Command::MoveCommand mc;
+    mc.set_command("StepForward");
+    mc.set_steps(steps);
+    std::string commString(mc.SerializeAsString());
+    char commndType[]={MOVE_COMMAND,0};
+    std::string reqString(commndType);
+    reqString+=commString;
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
+    assert(reply.size()==1);
 }
 
 void ServoData::stepBackward(int steps)
 {
-
+    Command::MoveCommand mc;
+    mc.set_command("StepBack");
+    mc.set_steps(steps);
+    std::string commString(mc.SerializeAsString());
+    char commndType[]={MOVE_COMMAND,0};
+    std::string reqString(commndType);
+    reqString+=commString;
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
+    assert(reply.size()==1);
 }
 
 void ServoData::stepLeft(int steps)
 {
-
+    Command::MoveCommand mc;
+    mc.set_command("TurnLeft");
+    mc.set_steps(steps);
+    std::string commString(mc.SerializeAsString());
+    char commndType[]={MOVE_COMMAND,0};
+    std::string reqString(commndType);
+    reqString+=commString;
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
+    assert(reply.size()==1);
 }
 
 void ServoData::stepRight(int steps)
 {
-
+    Command::MoveCommand mc;
+    mc.set_command("TurnRight");
+    mc.set_steps(steps);
+    std::string commString(mc.SerializeAsString());
+    char commndType[]={MOVE_COMMAND,0};
+    std::string reqString(commndType);
+    reqString+=commString;
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
+    assert(reply.size()==1);
 }
 
 void ServoData::GetSensorsInfo()
@@ -48,8 +101,6 @@ void ServoData::GetSensorsInfo()
     sensorVoltage.setValue(QString::number(voltage));
     int temperature = readServo0Sensor("GetTemperature");
     sensorTemp.setValue(QString::number(temperature));
-
-
 
 }
 
@@ -65,7 +116,9 @@ int ServoData::readServo0Sensor(QString command)
     Command::CommandToServo  toServo;
     toServo.set_name(command.toStdString().c_str());
     toServo.set_servoid(0);
-    std::string reqString(toServo.SerializeAsString());
+    char commndType[]={COMMAND_TO_SERVO,0};
+    std::string reqString(commndType);
+    reqString+=toServo.SerializeAsString();
     zmq::message_t req (reqString.length());
     memcpy (req.data (), reqString.c_str(), reqString.length());
     socket.send (req);
@@ -74,7 +127,7 @@ int ServoData::readServo0Sensor(QString command)
     //  Wait for next request from client
     socket.recv (&reply);
     Command::ResponceFromServo  fromServo;
-    fromServo.ParseFromArray(reply.data(),reply.size());
+    fromServo.ParseFromArray(reply.data(),static_cast<int>(reply.size()));
     return fromServo.result();
 }
 
