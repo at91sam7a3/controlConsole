@@ -18,8 +18,10 @@ ServoData::ServoData(QObject *parent)
 
 bool ServoData::connect(QString ip)
 {
+    std::cout<<"Connecting to "<<ip.toStdString()<<std::endl;
     socket.connect (ip.toStdString().c_str());
-    ReadTCPData();
+
+    GetSensorsInfo();
     return true;
 }
 
@@ -93,6 +95,24 @@ void ServoData::stepRight(int steps)
     //  Wait for next request from client
     socket.recv (&reply);
     assert(reply.size()==1);
+}
+
+void ServoData::setAngle(unsigned int servo, int angle)
+{
+    Command::CommandToServo  toServo;
+    toServo.set_name("SetAngle");
+    toServo.set_servoid(servo);
+    toServo.set_param1(angle);
+    char commndType[]={COMMAND_TO_SERVO,0};
+    std::string reqString(commndType);
+    reqString+=toServo.SerializeAsString();
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
 }
 
 void ServoData::GetSensorsInfo()

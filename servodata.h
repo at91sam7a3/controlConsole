@@ -18,6 +18,8 @@ public:
     Q_INVOKABLE void stepLeft(int steps);
     Q_INVOKABLE void stepRight(int steps);
 
+    Q_INVOKABLE void setAngle(unsigned int servo, int angle);
+
     sensorsControl sensorTemp;
     sensorsControl sensorVoltage;
     sensorsControl sensorDistance;

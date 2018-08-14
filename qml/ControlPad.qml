@@ -68,6 +68,7 @@ Rectangle{
             text: "Servo#"
         }
         InputField{
+            id: servoIdString
             width: parent.width
             value: "0"
         }
@@ -75,6 +76,7 @@ Rectangle{
             text: "Angle"
         }
         InputField{
+            id: servoAngleLString
             width: parent.width
             value: "0"
         }
@@ -82,6 +84,9 @@ Rectangle{
             id: setAngleButton
             text: "Set"
             width: parent.width
+            onClick: {
+               sData.setAngle(servoIdString.value,servoAngleLString.value)
+            }
         }
     }
 }
