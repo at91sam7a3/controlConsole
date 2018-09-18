@@ -10,5 +10,6 @@
         <file>qml/SensorsView.qml</file>
         <file>qml/SensorLine.qml</file>
         <file>qml/ControlPad.qml</file>
+        <file>qml/Touchpad.qml</file>
     </qresource>
 </RCC>

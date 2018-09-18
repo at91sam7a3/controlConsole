@@ -115,6 +115,45 @@ void ServoData::setAngle(unsigned int servo, int angle)
     socket.recv (&reply);
 }
 
+void ServoData::setBodyHeight(unsigned int height)
+{
+    Command::MoveCommand mc;
+    mc.set_command("SetBodyHeight");
+    mc.set_parameter(static_cast<int>(height));
+    std::string commString(mc.SerializeAsString());
+    char commndType[]={MOVE_COMMAND,0};
+    std::string reqString(commndType);
+    reqString+=commString;
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
+    assert(reply.size()==1);
+}
+
+void ServoData::setXY(unsigned int leg, int x, int y)
+{
+    Command::LegMoveCommand mc;
+    mc.set_x(-y+50);
+    mc.set_y(x+50);
+    mc.set_z(0);
+    mc.set_leg(leg);
+
+    std::string commString(mc.SerializeAsString());
+    char commndType[]={LEG_MOVEMENT,0};
+    std::string reqString(commndType);
+    reqString+=commString;
+    zmq::message_t req (reqString.length());
+    memcpy (req.data (), reqString.c_str(), reqString.length());
+    socket.send (req);
+    zmq::message_t reply;
+    //  Wait for next request from client
+    socket.recv (&reply);
+    assert(reply.size()==1);
+}
+
 void ServoData::GetSensorsInfo()
 {
     double voltage = readServo0Sensor("GetVoltage");

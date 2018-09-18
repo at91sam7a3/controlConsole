@@ -9,21 +9,20 @@ Rectangle {
     color: "grey"
     border.width: 1
     border.color: "lightBlue"
-    height:Screen.pixelDensity*10
+    height:Screen.pixelDensity*5
     Rectangle{
         color: "blue"
         anchors.left: parent.left
         anchors.top:parent.top
         anchors.bottom: parent.bottom
-        width: parent.width*((value+125)/250)
+        width: parent.width*((value-minValue)/(maxValue-minValue))
     }
     signal update()
     MouseArea{
         anchors.fill: parent
         onClicked: {
-            value=(mouseX/width-0.5)*250
+            value=(mouseX/width)*(maxValue-minValue)+minValue
             parent.update()
-            console.log("width ",width, " mouseX ",mouseX," value ",value)
         }
     }
 

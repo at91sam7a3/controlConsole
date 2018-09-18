@@ -20,6 +20,10 @@ public:
 
     Q_INVOKABLE void setAngle(unsigned int servo, int angle);
 
+    Q_INVOKABLE void setBodyHeight(unsigned int height);
+
+    Q_INVOKABLE void setXY(unsigned int leg, int x, int y);
+
     sensorsControl sensorTemp;
     sensorsControl sensorVoltage;
     sensorsControl sensorDistance;

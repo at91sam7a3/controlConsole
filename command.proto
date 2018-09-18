@@ -17,4 +17,12 @@ message ResponceFromServo {
 message MoveCommand{
     required string command = 1;
     optional int32 steps = 2;
+    optional int32 parameter = 3;
+}
+
+message LegMoveCommand{
+    required uint32 leg = 1;
+    required int32 x = 2;
+    required int32 y = 3;
+    required int32 z = 4;
 }
