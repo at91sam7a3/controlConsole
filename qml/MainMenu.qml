@@ -23,6 +23,12 @@ Rectangle {
     Button{
         text: "Program"
     }
+    Button{
+        text: "Video"
+        onClick: {
+            client.runVideo()
+        }
+    }
 
 
 }

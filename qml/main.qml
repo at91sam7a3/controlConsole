@@ -1,5 +1,7 @@
 import QtQuick 2.3
 import QtQuick.Window 2.2
+import mr.jb 1.0
+
 import "qrc:/"
 Window {
     property int perfectWidth:  Screen.pixelDensity*80
@@ -10,6 +12,13 @@ Window {
         anchors.fill: parent
         anchors.centerIn: parent
         color:"DarkBlue"
+
+        VideoImage {
+            id: videoFrame
+            objectName: "VideoFrame"
+            anchors.fill: parent
+
+        }
 
         Label{
             anchors.centerIn: parent

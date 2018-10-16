@@ -8,6 +8,7 @@ Rectangle{
     border.width: 2
     border.color: "yellow"
     color: "blue"
+    visible: client.connected
 
     InputField{
         id: stepsCount
@@ -33,7 +34,7 @@ Rectangle{
         anchors.topMargin: defaultMargin
         text: "Forward"
         onClick: {
-            sData.stepForward(stepsCount.value);
+            client.stepForward(stepsCount.value);
         }
     }
 
@@ -44,7 +45,7 @@ Rectangle{
         anchors.topMargin: defaultMargin
         text: "Left"
         onClick: {
-            sData.stepLeft(stepsCount.value);
+            client.stepLeft(stepsCount.value);
         }
     }
 
@@ -55,7 +56,7 @@ Rectangle{
         anchors.topMargin: defaultMargin
         text: "Right"
         onClick: {
-            sData.stepRight(stepsCount.value);
+            client.stepRight(stepsCount.value);
         }
     }
     Button{
@@ -66,7 +67,7 @@ Rectangle{
         text: "Back"
 
         onClick: {
-            sData.stepBackward(stepsCount.value);
+            client.stepBackward(stepsCount.value);
         }
     }
 
@@ -99,7 +100,7 @@ Rectangle{
             text: "Set"
             width: parent.width
             onClick: {
-               sData.setAngle(servoIdString.value,servoAngleLString.value)
+               client.setAngle(servoIdString.value,servoAngleLString.value)
             }
         }
     }
@@ -114,10 +115,10 @@ Rectangle{
         width: Screen.pixelDensity*50
         height: Screen.pixelDensity*50
         onXValueChanged: {
-            sData.setXY(selectedLeg,xValue,yValue)
+            client.setXY(selectedLeg,xValue,yValue)
         }
         onYValueChanged: {
-            sData.setXY(selectedLeg,xValue,yValue)
+            client.setXY(selectedLeg,xValue,yValue)
         }
     }
 
@@ -177,7 +178,7 @@ Rectangle{
         HorizontalSlider{
             id: heightSlider
             minValue: 40
-            maxValue: 150
+            maxValue: 250
             value: 80
             anchors.left: parent.left
             anchors.right: parent.right
@@ -186,7 +187,7 @@ Rectangle{
             anchors.rightMargin: defaultMargin
             anchors.bottomMargin: defaultMargin
             onValueChanged: {
-                sData.setBodyHeight(value)
+                client.setBodyHeight(value)
             }
         }
     }

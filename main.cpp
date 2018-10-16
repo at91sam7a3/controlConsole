@@ -2,16 +2,21 @@
 #include <QQmlApplicationEngine>
 #include <QQuickWindow>
 #include <QQmlContext>
-#include "servodata.h"
+#include "client.h"
+#include "imagewriter.h"
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-    ServoData sData;
     QQmlApplicationEngine engine;
-    engine.rootContext()->setContextProperty("sData",&sData);
-    engine.rootContext()->setContextProperty("sensorTemp",&sData.sensorTemp);
-    engine.rootContext()->setContextProperty("sensorDistance",&sData.sensorDistance);
-    engine.rootContext()->setContextProperty("sensorVoltage",&sData.sensorVoltage);
+    Client client;
+    client.engine_ = &engine;
+
+    qmlRegisterType<ImageWriter>("mr.jb",1,0,"VideoImage");
+
+    engine.rootContext()->setContextProperty("client",&client);
+    engine.rootContext()->setContextProperty("sensorTemp",&client.sensorTemp);
+    engine.rootContext()->setContextProperty("sensorDistance",&client.sensorDistance);
+    engine.rootContext()->setContextProperty("sensorVoltage",&client.sensorVoltage);
     engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     return app.exec();

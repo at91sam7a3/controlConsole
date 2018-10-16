@@ -8,4 +8,4 @@ conan install \
     -s compiler="gcc" \
     -s compiler.libcxx="libstdc++11" \
     -s os="Linux" \
-    --build missing 
+    --build zmq 

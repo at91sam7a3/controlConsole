@@ -10,6 +10,7 @@ Rectangle {
     color: "blue"
     border.color: "yellow"
     border.width: 2
+    visible: client.connected ? false : true;
     Label{
         anchors.topMargin: defaultMargin
         anchors.top:parent.top
@@ -32,7 +33,7 @@ Rectangle {
         anchors.bottom: parent.bottom
         text: "Connect"
         onClick: {
-            sData.connect("tcp://"+inputIpField.value+":5555")
+            client.connectToRobot(inputIpField.value)
         }
     }
 
