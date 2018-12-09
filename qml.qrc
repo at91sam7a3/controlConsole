@@ -11,5 +11,15 @@
         <file>qml/SensorLine.qml</file>
         <file>qml/ControlPad.qml</file>
         <file>qml/Touchpad.qml</file>
+        <file>qml/svg/screenshot.svg</file>
+        <file>qml/ButtonWithIcon.qml</file>
+        <file>qml/SubScreen.qml</file>
+        <file>qml/svg/arrow-up.svg</file>
+        <file>qml/svg/navigation.svg</file>
+        <file>qml/svg/qrcode.svg</file>
+        <file>qml/svg/rot-left.svg</file>
+        <file>qml/svg/rot-right.svg</file>
+        <file>qml/ControlWindow.qml</file>
+        <file>qml/SemiAuto.qml</file>
     </qresource>
 </RCC>

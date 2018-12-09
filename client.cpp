@@ -14,12 +14,6 @@ Client::Client(QObject *parent)
     , m_connected(false)
     , imagewriter(nullptr)
 {
-    sensorDistance.setValue("No data");
-    sensorDistance.setParameter("Distance");
-    sensorTemp.setValue("Read failure");
-    sensorTemp.setParameter("Temperature");
-    sensorVoltage.setValue("Not connected");
-    sensorVoltage.setParameter("Voltage");
     connect(&videoStreamPuller, &VideoStreamPuller::frameReady, this, &Client::updateFrame);
 }
 
@@ -45,8 +39,6 @@ bool Client::connectToRobot(QString ip)
 
 
     videoStreamPuller.robotVideoAddress = videoSocketConnectAddr;
-
-    GetSensorsInfo();
 
     setConnected(true);
 
@@ -154,8 +146,10 @@ void Client::setBodyHeight(unsigned int height)
     reqString+=commString;
     zmq::message_t req (reqString.length());
     memcpy (req.data (), reqString.c_str(), reqString.length());
-    settingsSocket.send (req);
-
+    commandSocket.send (req);
+       zmq::message_t reply;
+    commandSocket.recv (&reply);
+    assert(reply.size()==1);
 }
 
 void Client::setXY(unsigned int leg, int x, int y)
@@ -207,14 +201,17 @@ void Client::runVideo()
     videoStarted = true;
 }
 
-void Client::GetSensorsInfo()
+void Client::takeScreenshot()
 {
-    double voltage = readServo0Sensor("GetVoltage");
-    sensorVoltage.setValue(QString::number(voltage));
-    int temperature = readServo0Sensor("GetTemperature");
-    sensorTemp.setValue(QString::number(temperature));
-
+    videoStreamPuller.takeAPicture ();
 }
+
+/*sensorsControl *Client::GetSensorById(int id)
+{
+    return &sensorData[id];
+}*/
+
+
 
 bool Client::connected() const
 {
@@ -258,24 +255,6 @@ void Client::setVideoFrame(QPixmap videoFrame)
     emit videoFrameChanged(m_videoFrame);
 }
 
-int Client::readServo0Sensor(QString command)
-{
-    Command::CommandToServo  toServo;
-    toServo.set_name(command.toStdString().c_str());
-    toServo.set_servoid(0);
-    char commndType[]={COMMAND_TO_SERVO,0};
-    std::string reqString(commndType);
-    reqString+=toServo.SerializeAsString();
-    zmq::message_t req (reqString.length());
-    memcpy (req.data (), reqString.c_str(), reqString.length());
-    commandSocket.send (req);
 
-    zmq::message_t reply;
-    //  Wait for next request from client
-    commandSocket.recv (&reply);
-    Command::ResponceFromServo  fromServo;
-    fromServo.ParseFromArray(reply.data(),static_cast<int>(reply.size()));
-    return fromServo.result();
-}
 
 

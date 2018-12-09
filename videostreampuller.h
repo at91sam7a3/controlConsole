@@ -11,6 +11,7 @@ class VideoStreamPuller : public QThread
     void run() override;
 public:
     VideoStreamPuller();
+    void takeAPicture();
 signals:
     void frameReady();
 public:
@@ -22,7 +23,7 @@ private:
     zmq::context_t context;
     zmq::socket_t videoStreamSocket;
     QImage pic;
-
+    volatile bool needToSaveCurrentFrame;
 };
 
 #endif // VIDEOSTREAMPULLER_H

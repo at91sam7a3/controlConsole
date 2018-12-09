@@ -2,74 +2,66 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 
 Rectangle{
-    width: Screen.width/4
-    height: Screen.height*0.75
+
     property int defaultMargin: Screen.pixelDensity*2
-    border.width: 2
-    border.color: "yellow"
+
     color: "blue"
-    visible: client.connected
 
-    InputField{
-        id: stepsCount
-        anchors.right: parent.right
-        anchors.verticalCenter: backButton.verticalCenter
-        anchors.leftMargin: defaultMargin
-        anchors.rightMargin: defaultMargin
-        anchors.bottomMargin: defaultMargin
-        value: "1"
-    }
-
-    Label{
-        id: label
-        text: "Direct control"
+    Column{
+        id: moveCommands
+        spacing: defaultMargin
+        anchors.left: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: defaultMargin
-    }
-    Button{
-        id: forwardButton
-        anchors.top: label.bottom
-        anchors.horizontalCenter: label.horizontalCenter
-        anchors.topMargin: defaultMargin
-        text: "Forward"
-        onClick: {
-            client.stepForward(stepsCount.value);
+        anchors.bottom: parent.bottom
+        width: defaultMargin*10
+        anchors.margins: defaultMargin
+        Label{
+            id: label
+            text: "Move control"
+        }
+        ButtonWithIcon{
+            id: forwardButton
+            icon: "qrc:/qml/svg/arrow-up.svg"
+            onClick: {
+                client.stepForward(stepsCount.value);
+            }
+        }
+        Row{
+            spacing: defaultMargin
+            ButtonWithIcon{
+                id: leftButton
+                icon: "qrc:/qml/svg/rot-left.svg"
+                onClick: {
+                    client.stepLeft(stepsCount.value);
+                }
+            }
+
+            ButtonWithIcon{
+                id: rightButton
+                icon: "qrc:/qml/svg/rot-left.svg"
+                iconMirror: true
+                onClick: {
+                    client.stepRight(stepsCount.value);
+                }
+            }
+        }
+        ButtonWithIcon{
+            id: backButton
+            icon: "qrc:/qml/svg/arrow-up.svg"
+            iconRotation: 180
+
+            onClick: {
+                client.stepBackward(stepsCount.value);
+            }
+        }
+        InputField{
+            id: stepsCount
+            value: "1"
         }
     }
 
-    Button{
-        id: leftButton
-        anchors.top: forwardButton.bottom
-        anchors.right: forwardButton.left
-        anchors.topMargin: defaultMargin
-        text: "Left"
-        onClick: {
-            client.stepLeft(stepsCount.value);
-        }
-    }
 
-    Button{
-        id: rightButton
-        anchors.top: forwardButton.bottom
-        anchors.left: forwardButton.right
-        anchors.topMargin: defaultMargin
-        text: "Right"
-        onClick: {
-            client.stepRight(stepsCount.value);
-        }
-    }
-    Button{
-        id: backButton
-        anchors.top: rightButton.bottom
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.topMargin: defaultMargin
-        text: "Back"
 
-        onClick: {
-            client.stepBackward(stepsCount.value);
-        }
-    }
 
     Column{
         id: servoBlock
@@ -77,7 +69,7 @@ Rectangle{
         anchors.left: parent.left
         anchors.top: parent.top
         anchors.bottom: parent.bottom
-        anchors.right: leftButton.left
+        width: defaultMargin*10
         anchors.margins: defaultMargin
         Label{
             text: "Servo#"
@@ -104,7 +96,7 @@ Rectangle{
             }
         }
     }
-
+/*
     property int selectedLeg: 0
     Touchpad{
         id: touchpad
@@ -152,7 +144,8 @@ Rectangle{
         }
         }
     }
-
+    */
+/*
     Rectangle{
         id: heightControl
         anchors.left: parent.left
@@ -190,5 +183,5 @@ Rectangle{
                 client.setBodyHeight(value)
             }
         }
-    }
+    }*/
 }

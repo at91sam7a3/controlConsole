@@ -14,6 +14,7 @@ class Client : public QObject
     Q_OBJECT
     Q_PROPERTY(bool connected READ connected WRITE setConnected NOTIFY connectedChanged)
     Q_PROPERTY(QPixmap videoFrame READ videoFrame WRITE setVideoFrame NOTIFY videoFrameChanged)
+   // Q_PROPERTY(int sensorDataCount READ sensorDataCount WRITE setSensorDataCount NOTIFY sensorDataCountChanged)
 public:
     explicit Client(QObject *parent = 0);
     Q_INVOKABLE bool connectToRobot(QString ip);
@@ -31,10 +32,11 @@ public:
 
     Q_INVOKABLE void runVideo();
 
-    sensorsControl sensorTemp;
-    sensorsControl sensorVoltage;
-    sensorsControl sensorDistance;
-    void GetSensorsInfo(void);
+    Q_INVOKABLE void takeScreenshot();
+
+   // Q_INVOKABLE sensorsControl *GetSensorById(int id);
+
+
     bool connected() const;
 
     QPixmap videoFrame() const;
@@ -53,7 +55,7 @@ public slots:
     void setVideoFrame(QPixmap videoFrame);
 
 private:
-    int readServo0Sensor(QString command);
+
     zmq::context_t context;
     zmq::socket_t commandSocket;
     zmq::socket_t settingsSocket;
@@ -63,7 +65,7 @@ private:
     VideoStreamPuller videoStreamPuller;
     QPixmap m_videoFrame;
     ImageWriter * imagewriter;
-
+ //   std::vector<sensorsControl> sensorData;
 public:
     QQmlApplicationEngine * engine_;
 };

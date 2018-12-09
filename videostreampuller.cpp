@@ -18,6 +18,10 @@ void VideoStreamPuller::run() {
         //std::cout << frameSize <<std::endl;
         QImage pix;
         pix.loadFromData((const uchar*)frameMessage.data(), frameSize, "JPG");
+        if(needToSaveCurrentFrame){
+            needToSaveCurrentFrame=false;
+            pix.save ("screen.jpg");
+        }
         //std::cout << "do refresh" <<std::endl;
         RefreshPicture(pix);
         emit frameReady();
@@ -27,8 +31,14 @@ void VideoStreamPuller::run() {
 VideoStreamPuller::VideoStreamPuller()
     :context(2)
     , videoStreamSocket(context,ZMQ_PAIR)
+    , needToSaveCurrentFrame(false)
 {
     std::cout <<"Socket prepared " <<std::endl;
+}
+
+void VideoStreamPuller::takeAPicture()
+{
+    needToSaveCurrentFrame = true;
 }
 
 QImage VideoStreamPuller::GetFrame()
