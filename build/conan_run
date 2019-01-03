@@ -7,5 +7,4 @@ conan install \
     -s build_type="Debug" \
     -s compiler="gcc" \
     -s compiler.libcxx="libstdc++11" \
-    -s os="Linux" \
-    --build zmq 
+    -s os="Linux" 

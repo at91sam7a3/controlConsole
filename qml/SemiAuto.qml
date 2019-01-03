@@ -24,6 +24,7 @@ Rectangle{
                 text: "X Coord,mm"
             }
             InputField{
+                id: x_coord
                 value: "0"
             }
         }
@@ -32,11 +33,15 @@ Rectangle{
                 text: "Y Coord,mm"
             }
             InputField{
+                id: y_coord
                 value: "0"
             }
         }
         Button{
             text: "Go"
+            onClick: {
+                client.moveToCoordinates(x_coord.value,y_coord.value)
+            }
         }
         Label{
 
@@ -47,11 +52,15 @@ Rectangle{
                 text: "Angle,degree"
             }
             InputField{
+                id: direction_angle
                 value: "0"
             }
         }
         Button{
             text: "Turn"
+            onClick: {
+                client.turnToAngle(direction_angle.value)
+            }
         }
     }
 }

@@ -45,11 +45,12 @@ bool Client::connectToRobot(QString ip)
     return true;
 }
 
-void Client::stepForward(int steps)
+void Client::moveToCoordinates(int x, int y)
 {
     Command::MoveCommand mc;
-    mc.set_command("StepForward");
-    mc.set_steps(steps);
+    mc.set_command("Move");
+    mc.set_x(x);
+    mc.set_y(y);
     std::string commString(mc.SerializeAsString());
     char commndType[]={MOVE_COMMAND,0};
     std::string reqString(commndType);
@@ -63,11 +64,11 @@ void Client::stepForward(int steps)
     assert(reply.size()==1);
 }
 
-void Client::stepBackward(int steps)
+void Client::turnToAngle(int angle)
 {
     Command::MoveCommand mc;
-    mc.set_command("StepBack");
-    mc.set_steps(steps);
+    mc.set_command("Move");
+    mc.set_rotation_before(angle);
     std::string commString(mc.SerializeAsString());
     char commndType[]={MOVE_COMMAND,0};
     std::string reqString(commndType);
@@ -81,41 +82,7 @@ void Client::stepBackward(int steps)
     assert(reply.size()==1);
 }
 
-void Client::stepLeft(int steps)
-{
-    Command::MoveCommand mc;
-    mc.set_command("TurnLeft");
-    mc.set_steps(steps);
-    std::string commString(mc.SerializeAsString());
-    char commndType[]={MOVE_COMMAND,0};
-    std::string reqString(commndType);
-    reqString+=commString;
-    zmq::message_t req (reqString.length());
-    memcpy (req.data (), reqString.c_str(), reqString.length());
-    commandSocket.send (req);
-    zmq::message_t reply;
-    //  Wait for next request from client
-    commandSocket.recv (&reply);
-    assert(reply.size()==1);
-}
 
-void Client::stepRight(int steps)
-{
-    Command::MoveCommand mc;
-    mc.set_command("TurnRight");
-    mc.set_steps(steps);
-    std::string commString(mc.SerializeAsString());
-    char commndType[]={MOVE_COMMAND,0};
-    std::string reqString(commndType);
-    reqString+=commString;
-    zmq::message_t req (reqString.length());
-    memcpy (req.data (), reqString.c_str(), reqString.length());
-    commandSocket.send (req);
-    zmq::message_t reply;
-    //  Wait for next request from client
-    commandSocket.recv (&reply);
-    assert(reply.size()==1);
-}
 
 void Client::setAngle(unsigned int servo, int angle)
 {
@@ -137,7 +104,7 @@ void Client::setAngle(unsigned int servo, int angle)
 
 void Client::setBodyHeight(unsigned int height)
 {
-    Command::MoveCommand mc;
+    /*Command::MoveCommand mc;
     mc.set_command("SetBodyHeight");
     mc.set_parameter(static_cast<int>(height));
     std::string commString(mc.SerializeAsString());
@@ -149,7 +116,7 @@ void Client::setBodyHeight(unsigned int height)
     commandSocket.send (req);
        zmq::message_t reply;
     commandSocket.recv (&reply);
-    assert(reply.size()==1);
+    assert(reply.size()==1);*/
 }
 
 void Client::setXY(unsigned int leg, int x, int y)

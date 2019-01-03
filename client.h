@@ -19,10 +19,9 @@ public:
     explicit Client(QObject *parent = 0);
     Q_INVOKABLE bool connectToRobot(QString ip);
 
-    Q_INVOKABLE void stepForward(int steps);
-    Q_INVOKABLE void stepBackward(int steps);
-    Q_INVOKABLE void stepLeft(int steps);
-    Q_INVOKABLE void stepRight(int steps);
+    Q_INVOKABLE void moveToCoordinates(int x,int y);
+    Q_INVOKABLE void turnToAngle(int angle);
+
 
     Q_INVOKABLE void setAngle(unsigned int servo, int angle);
 
