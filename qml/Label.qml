@@ -12,6 +12,7 @@ Item {
         text:"---"
         anchors.fill: parent
         font.pixelSize:  parent.height
+
     }
 
 }

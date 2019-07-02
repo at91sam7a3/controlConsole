@@ -32,6 +32,10 @@ bool Client::connectToRobot(QString ip)
     videoSocketConnectAddr += ip.toStdString();
     videoSocketConnectAddr += ":5557";
 
+    std::string telemetrySocketConnectAddr("tcp://");
+    telemetrySocketConnectAddr += ip.toStdString();
+    telemetrySocketConnectAddr += ":5558";
+
     std::cout<<"Connecting to "<<commandSocketConnectAddr<<std::endl;
     commandSocket.connect (commandSocketConnectAddr.c_str());
     std::cout<<"Connecting to "<<settingsSocketConnectAddr<<std::endl;
@@ -39,14 +43,16 @@ bool Client::connectToRobot(QString ip)
 
 
     videoStreamPuller.robotVideoAddress = videoSocketConnectAddr;
+    telemetryDataPuller.robotTelemetryAddress = telemetrySocketConnectAddr;
 
     setConnected(true);
-
+     telemetryDataPuller.start();
     return true;
 }
 
 void Client::moveToCoordinates(int x, int y)
 {
+    std::cout<<"Sending move comand to coord "<<x<<","<<y<<std::endl;
     Command::MoveCommand mc;
     mc.set_command("Move");
     mc.set_x(x);
@@ -188,6 +194,11 @@ bool Client::connected() const
 QPixmap Client::videoFrame() const
 {
     return m_videoFrame;
+}
+
+void Client::SetTelemetryController(TelemetryController *tc)
+{
+    telemetryDataPuller.telecon_ = tc;
 }
 
 void Client::ReadTCPData()

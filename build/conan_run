@@ -1,5 +1,3 @@
-export PATH=~/raspberrypi/tools/arm-bcm2708/arm-rpi-4.9.3-linux-gnueabihf/bin:$PATH
-
 conan install \
     .. \
     -g cmake_multi \
@@ -7,4 +5,5 @@ conan install \
     -s build_type="Debug" \
     -s compiler="gcc" \
     -s compiler.libcxx="libstdc++11" \
-    -s os="Linux" 
+    -s os="Linux" \
+    --build missing

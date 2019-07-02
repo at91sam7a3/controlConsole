@@ -2,6 +2,13 @@ cmake_minimum_required(VERSION 3.1)
 
 project(roboConsole LANGUAGES CXX)
 
+set(Qt5Core_DIR "/home/oleksii/programs/Qt/5.12.0/gcc_64/lib/cmake/Qt5Core")
+set(Qt5_DIR "/home/oleksii/programs/Qt/5.12.0/gcc_64/lib/cmake/Qt5")
+set(Qt5Quick_DIR "/home/oleksii/programs/Qt/5.12.0/gcc_64/lib/cmake/Qt5ml")
+set(QT_QMAKE_EXECUTABLE "/home/oleksii/programs/Qt/5.12.0/gcc_64/bin/qmake.exe")
+
+
+
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)

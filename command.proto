@@ -31,5 +31,12 @@ message LegMoveCommand{
 
 message CommandToCamera{
     required string command = 1;
-    optional int32 param = 2;
+    optional string param = 2;
+}
+
+message TelemetryUpdate{
+    required string name = 1;
+    optional float fvalue = 2;
+    optional string svalue = 3;
+    optional bool bvalue = 4;
 }
