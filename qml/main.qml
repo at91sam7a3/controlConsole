@@ -70,13 +70,13 @@ Window {
             }
         }
 
-        ConnectData {
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-        }
         MainMenu {
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.top: parent.top
+        }
+        ConnectData {
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
         }
     }
 }
